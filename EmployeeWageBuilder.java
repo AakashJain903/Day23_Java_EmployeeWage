@@ -6,6 +6,7 @@ class EmployeeWageBuilder
 	}
 	public static void main(String args[])
 	{
-		welcome();
+		EmployeeWageBuilder obj = new EmployeeWageBuilder();
+		obj.welcome();
 	}
 }
