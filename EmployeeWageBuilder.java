@@ -1,45 +1,32 @@
 class EmployeeWageBuilder
 {
-	private String company;
-	private int empRatePerHrs;
-	private int numOfWorkingDays;
-	private int totalHrsInMonth;
+	private int numOfCompany=0;
+	private EmpWageCompute[] companyEmpWageArray;
 
-	public String getCompany()
+	public void EmployeeWageBuilder() 
 	{
-		return company;
+	  companyEmpWageArray = new EmpWageCompute[5];
 	}
-
-	public int empRatePerHrs()
+	
+	private void addCompanyEmpWage(String company, int empRatePerHrs, int numOfWorkingDays, int totalHrsInMonth)  
 	{
-		return empRatePerHrs;
+		companyEmpWageArray[numOfCompany]= new EmpWageCompute(company, empRatePerHrs, numOfWorkingDays, totalHrsInMonth);
+		numOfCompany++;
 	}
-
-	public int getNumOfWorkingDays()
+	
+	private void computeEmpWage() 
 	{
-		return numOfWorkingDays;
-	}
-
-	public int getTotalHrsInMonth()
-	{
-		return totalHrsInMonth;
-	}
-
-	public EmployeeWageBuilder(String company, int empRatePerHrs, int numOfWorkingDays, int totalHrsInMonth)
-	{
-		this.company = company;
-		this.empRatePerHrs = empRatePerHrs;
-		this.numOfWorkingDays = numOfWorkingDays;
-		this.totalHrsInMonth = totalHrsInMonth;
+		for(int i =0;i<numOfCompany;i++) 
+		{
+			companyEmpWageArray[i].setTotalWage(this.monthlyWageCompute(companyEmpWageArray[i]));
+			System.out.println(companyEmpWageArray[i]);
+		}
 	}
 
 	public void emp_WageBuilder(int empRatePerHrs)
 	{
 		int empFullDayHrs = 0;
-		int empWage = 0;
-		int totalEmpWage = 0;
-		int totalWorkingDay = 0;
-
+		int totalHrsInMonth=0;
 		int empCheck = (int) Math.floor(Math.random()*10) % 3;
 
 		switch (empCheck)
@@ -69,10 +56,10 @@ class EmployeeWageBuilder
 		return dailyWage;
 	}
 
-	public static int monthlyWageCompute(EmployeeWageBuilder empwagecompute)
+	public static int monthlyWageCompute(EmpWageCompute empwagecompute)
 	{
-		int dailyWage = dailyWageCompute(empwagecompute.totalHrsInMonth, empwagecompute.empRatePerHrs);
-		return dailyWage * empwagecompute.numOfWorkingDays;
+		int dailyWage = dailyWageCompute(empwagecompute.getTotalHrsInMonth(), empwagecompute.getEmpRatePerHrs());
+		return dailyWage * empwagecompute.getNumOfWorkingDays();
 	}
 
 	public static void welcome()
@@ -83,12 +70,9 @@ class EmployeeWageBuilder
 	public static void main(String arg[])
 	{
 		welcome();
-		EmployeeWageBuilder wageCal1 = new EmployeeWageBuilder("Reliance Fresh", 8, 10, 20);
-		System.out.println("company" + wageCal1.getCompany() + "Total wage is :");
-		System.out.println(monthlyWageCompute(wageCal1));
-		EmployeeWageBuilder wageCal2 = new EmployeeWageBuilder("Dmart", 10, 11, 20);
-		System.out.println("company" + wageCal2.getCompany() + "Total wage is :");
-		System.out.println(monthlyWageCompute(wageCal2));
-		
+		EmployeeWageBuilder empwage = new EmployeeWageBuilder();
+		empwage.addCompanyEmpWage("Reliance Fresh", 5, 20, 10);
+		empwage.addCompanyEmpWage("Dmart", 10, 22, 20);
+		empwage.computeEmpWage();	
 	}
 }
