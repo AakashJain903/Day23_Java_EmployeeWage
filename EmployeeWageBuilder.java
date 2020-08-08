@@ -20,6 +20,7 @@ class EmployeeWageBuilder implements IEmpWage
 		{
 			EmpWageCompute empwagecompute = companyEmpWageList.get(i);
 			empwagecompute.setTotalWage(this.monthlyWageCompute(empwagecompute));
+			System.out.println("Daily wage for " + empwagecompute.getCompany() + " is " + empwagecompute.getDailywage());
 			System.out.println(empwagecompute);
 		}
 	}
