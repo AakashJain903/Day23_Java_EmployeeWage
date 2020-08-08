@@ -1,25 +1,26 @@
+import java.util.LinkedList;
+
 class EmployeeWageBuilder implements IEmpWage
 {
-	private int numOfCompany=0;
-	private EmpWageCompute[] companyEmpWageArray;
+	private LinkedList<EmpWageCompute> companyEmpWageList;
 
 	public void EmployeeWageBuilder() 
 	{
-	  companyEmpWageArray = new EmpWageCompute[5];
+	  companyEmpWageList = new LinkedList<>();
 	}
 	
 	public void addCompanyEmpWage(String company, int empRatePerHrs, int numOfWorkingDays, int totalHrsInMonth)  
 	{
-		companyEmpWageArray[numOfCompany]= new EmpWageCompute(company, empRatePerHrs, numOfWorkingDays, totalHrsInMonth);
-		numOfCompany++;
+		companyEmpWageList.add(new EmpWageCompute(company, empRatePerHrs, numOfWorkingDays, totalHrsInMonth));
 	}
 	
 	public void computeEmpWage() 
 	{
-		for(int i =0;i<numOfCompany;i++) 
+		for(int i =0;i<companyEmpWageList.size();i++) 
 		{
-			companyEmpWageArray[i].setTotalWage(this.monthlyWageCompute(companyEmpWageArray[i]));
-			System.out.println(companyEmpWageArray[i]);
+			EmpWageCompute empwagecompute = companyEmpWageList.get(i);
+			empwagecompute.setTotalWage(this.monthlyWageCompute(empwagecompute));
+			System.out.println(empwagecompute);
 		}
 	}
 
@@ -71,7 +72,7 @@ class EmployeeWageBuilder implements IEmpWage
 	{
 		welcome();
 		EmployeeWageBuilder empwage = new EmployeeWageBuilder();
-		empwage.addCompanyEmpWage("Reliance Fresh", 5, 20, 10);
+		empwage.addCompanyEmpWage("Reliance Fresh", 20, 20, 10);
 		empwage.addCompanyEmpWage("Dmart", 10, 22, 20);
 		empwage.computeEmpWage();	
 	}

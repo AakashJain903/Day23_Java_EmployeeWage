@@ -1,4 +1,4 @@
-class EmpWageCompute
+public class EmpWageCompute
 {
 	private String company;
 	private int empRatePerHrs;
