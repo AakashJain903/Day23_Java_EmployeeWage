@@ -1,4 +1,4 @@
-class EmployeeWageBuilder
+class EmployeeWageBuilder implements IEmpWage
 {
 	private int numOfCompany=0;
 	private EmpWageCompute[] companyEmpWageArray;
@@ -8,13 +8,13 @@ class EmployeeWageBuilder
 	  companyEmpWageArray = new EmpWageCompute[5];
 	}
 	
-	private void addCompanyEmpWage(String company, int empRatePerHrs, int numOfWorkingDays, int totalHrsInMonth)  
+	public void addCompanyEmpWage(String company, int empRatePerHrs, int numOfWorkingDays, int totalHrsInMonth)  
 	{
 		companyEmpWageArray[numOfCompany]= new EmpWageCompute(company, empRatePerHrs, numOfWorkingDays, totalHrsInMonth);
 		numOfCompany++;
 	}
 	
-	private void computeEmpWage() 
+	public void computeEmpWage() 
 	{
 		for(int i =0;i<numOfCompany;i++) 
 		{
