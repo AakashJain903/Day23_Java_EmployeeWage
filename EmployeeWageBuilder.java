@@ -1,17 +1,23 @@
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 class EmployeeWageBuilder implements IEmpWage
 {
 	private LinkedList<EmpWageCompute> companyEmpWageList;
+	private Map<String,EmpWageCompute> companyToEmpWageMap;
 
 	public void EmployeeWageBuilder() 
 	{
 	  companyEmpWageList = new LinkedList<>();
+	  companyToEmpWageMap = new HashMap<>();
 	}
 	
 	public void addCompanyEmpWage(String company, int empRatePerHrs, int numOfWorkingDays, int totalHrsInMonth)  
 	{
-		companyEmpWageList.add(new EmpWageCompute(company, empRatePerHrs, numOfWorkingDays, totalHrsInMonth));
+		EmpWageCompute empwagecompute = new EmpWageCompute(company, empRatePerHrs, numOfWorkingDays, totalHrsInMonth);
+		companyEmpWageList.add(empwagecompute);
+		companyToEmpWageMap.put(company, empwagecompute);
 	}
 	
 	public void computeEmpWage() 
@@ -23,6 +29,11 @@ class EmployeeWageBuilder implements IEmpWage
 			System.out.println("Daily wage for " + empwagecompute.getCompany() + " is " + empwagecompute.getDailywage());
 			System.out.println(empwagecompute);
 		}
+	}
+
+	public int getTotalWage(String company)
+	{
+		return companyToEmpWageMap.get(company).getTotalWage();
 	}
 
 	public void emp_WageBuilder(int empRatePerHrs)
@@ -75,6 +86,8 @@ class EmployeeWageBuilder implements IEmpWage
 		EmployeeWageBuilder empwage = new EmployeeWageBuilder();
 		empwage.addCompanyEmpWage("Reliance Fresh", 20, 20, 10);
 		empwage.addCompanyEmpWage("Dmart", 10, 22, 20);
-		empwage.computeEmpWage();	
+		empwage.computeEmpWage();
+		System.out.println("Total wage for Reliance Fresh is " + empwage.getTotalWage("Reliance Fresh"));
+	
 	}
 }
